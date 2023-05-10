@@ -11,10 +11,6 @@ function App() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [positionTitle, setPositionTitle] = useState('');
-  const [mainTasks, setMainTasks] = useState('');
-  const [employmentDate, setEmploymentDate] = useState('');
   const [schoolName, setSchoolName] = useState('');
   const [titleOfStudy, setTitleOfStudy] = useState('');
   const [dateOfStudy, setDateOfStudy] = useState('');
@@ -25,8 +21,26 @@ function App() {
   });
   const [editStatePS, setEditStatePS] = useState(false);
 
+  const [employmentHistory, setEmploymentHistory] = useState(
+    [{
+      id: 1,
+      companyName: "Company A",
+      positionTitle: "Position A",
+      mainTasks: ["Task 1", "Task 2", "Task 3"],
+      employmentDate: "01-01-2020 - 01-01-2022",
+      isEditing: false
+    },
+    {
+      id: 2,
+      companyName: 'Company B',
+      positionTitle: 'Position B',
+      mainTasks: ['Task 4', 'Task 5'],
+      employmentDate: 'Jan 2021 - Present',
+      isEditing: false
+    }]
+  )
+
   function handleEditClickPS() {
-    
     setEditStatePS(true);
   }
 
@@ -45,18 +59,63 @@ function App() {
     setEditStatePS(false)
   }
 
+  function updateEH(updatedHistory) {
+    setEmploymentHistory(updatedHistory)
+  }
+
+  // Edit employment entry
+  const editEmploymentEntry = (id) => {
+    setEmploymentHistory((prevState) => {
+      return prevState.map((employment) =>
+        employment.id === id ? { ...employment, isEditing: true } : employment
+      );
+    });
+  };
+
+  // Update employment entry
+  const updateEmploymentEntry = (id) => {
+    setEmploymentHistory((prevState) =>
+      prevState.map((employment) =>
+        employment.id === id ? { ...employment, isEditing: false } : employment
+      )
+    );
+  };
+
+  // Delete employment entry
+  const deleteEmploymentEntry = (id) => {
+    setEmploymentHistory((prevHistory) =>
+      prevHistory.filter((employment) => employment.id !== id)
+    );
+  };
+
+
+
+  const handleAddEntry = () => {
+    const newEntry = {
+      id: employmentHistory.length + 1, // Generate a new unique ID
+      companyName: '',
+      positionTitle: '',
+      mainTasks: [],
+      employmentDate: '',
+      isEditing: false,
+    };
+
+    setEmploymentHistory((prevHistory) => [...prevHistory, newEntry]);
+  };
+
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-  
+
     const newGeneralInfo = {
       cvName: formData.get('name'),
       cvEmail: formData.get('email'),
       cvPhone: formData.get('phone')
     };
-  
+
     setGeneralInfo(newGeneralInfo);
 
     // Get the form data
@@ -74,7 +133,7 @@ function App() {
 
     // Save the PDF
     //doc.save('cv.pdf');
-  
+
   };
 
 
@@ -94,32 +153,37 @@ function App() {
         setGeneralInfo={setGeneralInfo}
 
       />
-      
-        <Experience 
-        companyName={companyName}
-        positionTitle={positionTitle}
-        mainTasks={mainTasks}
-        employmentDate={employmentDate}
-        setCompanyName={setCompanyName}
-        setPositionTitle={setPositionTitle}
-        setMainTasks={setMainTasks}
-        setEmploymentDate={setEmploymentDate}
-        />
-        <Education 
+
+      <Experience
+        employmentHistory={employmentHistory}
+        editEmploymentEntry={editEmploymentEntry}
+        updateEmploymentEntry={updateEmploymentEntry}
+        deleteEmploymentEntry={deleteEmploymentEntry}
+        setEmploymentHistory={setEmploymentHistory}
+        handleAddEntry={handleAddEntry} // Pass the callback function to the Experience component
+      />
+      <Education
         schoolName={schoolName}
         titleOfStudy={titleOfStudy}
         dateOfStudy={dateOfStudy}
         setSchoolName={setSchoolName}
         setTitleOfStudy={setTitleOfStudy}
         setDateOfStudy={setDateOfStudy}
-        />
-      
-      <Overview 
-      generalinfo={generalinfo} 
-      handleEdit={handleEditClickPS} 
-      handleChange={handleChange} 
-      editStatePS={editStatePS}
-      handleUpdate={handleUpdateClickPS}
+      />
+
+      <Overview
+        generalinfo={generalinfo}
+        handleEdit={handleEditClickPS}
+        handleChange={handleChange}
+        editStatePS={editStatePS}
+        handleUpdate={handleUpdateClickPS}
+
+        employmentHistory={employmentHistory}
+        editEmploymentEntry={editEmploymentEntry}
+        updateEmploymentEntry={updateEmploymentEntry}
+        deleteEmploymentEntry={deleteEmploymentEntry}
+        setEmploymentHistory={setEmploymentHistory}
+        handleAddEntry={handleAddEntry}
       />
     </div>
   );

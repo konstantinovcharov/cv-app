@@ -1,7 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Experience from './Experience';
 
 export default function Overview(props) {
-    const { generalinfo, handleEdit, handleChange, editStatePS, handleUpdate } = props;
+    const {
+        generalinfo,
+        handleEdit,
+        handleChange,
+        editStatePS,
+        handleUpdate,
+        employmentHistory,
+        editEmploymentEntry,
+        updateEmploymentEntry,
+        deleteEmploymentEntry,
+        setEmploymentHistory,
+        handleAddEntry
+    } = props;
     return (
         <>
             <header>
@@ -59,6 +72,15 @@ export default function Overview(props) {
                     </div>
                 </div>
             </section>
+            <Experience 
+            employmentHistory={employmentHistory}
+            editEmploymentEntry={editEmploymentEntry}
+            updateEmploymentEntry={updateEmploymentEntry}
+            deleteEmploymentEntry={deleteEmploymentEntry}
+            setEmploymentHistory={setEmploymentHistory}
+            handleAddEntry={handleAddEntry}
+
+            />
             <section>
                 <h2>Education</h2>
                 <div className="row">
