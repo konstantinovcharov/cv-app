@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+.general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 1rem;
+  
+}
+
+.form-general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-general > input {
+  margin: 0.5rem;
+}
+
+.btn-general {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.experience, .education {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+header {
+  background-color: #0074D9;
+  color: #FFF;
+  padding: 1rem;
+}
+
+section {
+  padding: 1rem;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"], select {
+  box-sizing: border-box; 
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.col-6 {
+  flex-basis: 50%;
+}
+
+.button-edit, .button-update {
+  display: inline-block;
+  padding: 0.5rem;
+  width: 75px;  
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 1rem;
+}
+
+.button-edit:hover {
+  background-color: #0062cc;
+}
