@@ -1,21 +1,106 @@
 import React from 'react'
 
 export default function Education(props) {
-    const {schoolName, titleOfStudy, dateOfStudy, setSchoolName, setTitleOfStudy, setDateOfStudy} = props;
+    const {
+        studyHistory,
+        setStudyHistory,
+        editEducationEntry,
+        updateEducationEntry,
+        deleteEducationEntry,
+        handleEduEntry
+    } = props;
+
     return (
         <div className='education'>
             <h1>Education</h1>
-            <form className='form-general' >
-                <label htmlFor="schoolName">School Name: </label>
-                <input type="text" name="schoolName" id="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} />
+            {studyHistory.map((education) => (
+                <div key={education.id}>
+                    <div className='col'>
+                        {education.isEditing ? (
+                            <>
+                                <label>School Name: </label>
+                                <input
+                                    type='text'
+                                    value={education.schoolName}
+                                    onChange={(e) =>
+                                        setStudyHistory((prevState) =>
+                                            prevState.map((item) =>
+                                                item.id === education.id
+                                                    ? { ...item, schoolName: e.target.value }
+                                                    : item
+                                            )
+                                        )
+                                    }
 
-                <label htmlFor="titleOfStudy">Title of Study:  </label>
-                <input type="text" name="titleOfStudy" id="titleOfStudy" value={titleOfStudy} onChange={(e) => setTitleOfStudy(e.target.value)} />
-
-                <label htmlFor="mainTasks">Date of Study: </label>
-                <input type="text" name="dateOfStudy" id="dateOfStudy" value={dateOfStudy} onChange={(e) => setDateOfStudy(e.target.value)} />
-                               
-            </form>
+                                />
+                            </>
+                        ) : (
+                            <><label>School Name: </label> {education.schoolName}</>
+                        )
+                        }
+                    </div>
+                    <div className='col'>
+                        {education.isEditing ? (
+                            <>
+                                <label>Title of Study:</label>
+                                <input
+                                    type="text"
+                                    value={education.titleOfStudy}
+                                    onChange={(e) =>
+                                        setStudyHistory((prevState) =>
+                                            prevState.map((item) =>
+                                                item.id === education.id
+                                                    ? { ...item, titleOfStudy: e.target.value }
+                                                    : item
+                                            )
+                                        )
+                                    }
+                                />
+                            </>
+                        ) : (
+                            <><label>Title of Study</label> {education.titleOfStudy}</>
+                        )}
+                    </div>
+                    <div className='col'>
+                        {education.isEditing ? (
+                            <>
+                                <label>Date of Study:</label>
+                                <input
+                                    type="text"
+                                    value={education.dateOfStudy}
+                                    onChange={(e) =>
+                                        setStudyHistory((prevState) =>
+                                            prevState.map((item) =>
+                                                item.id === education.id
+                                                    ? { ...item, dateOfStudy: e.target.value }
+                                                    : item
+                                            )
+                                        )
+                                    }
+                                />
+                            </>
+                        ) : (
+                            <><label>Date of Study:</label> {education.dateOfStudy}</>
+                        )}
+                    </div>
+                    <div>
+                        {education.isEditing ? (
+                            <>
+                                <button onClick={() => updateEducationEntry(education.id)}>
+                                    Update
+                                </button>
+                                <button onClick={() => deleteEducationEntry(education.id)}>
+                                    Delete
+                                </button>
+                            </>
+                        ) : (
+                            <button onClick={() => editEducationEntry(education.id)}>Edit</button>
+                        )}
+                    </div>
+                    <hr />
+                </div>
+            ))}
+            <button onClick={() => handleEduEntry()}>Add</button>
         </div>
     )
 }

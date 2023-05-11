@@ -1,5 +1,6 @@
 import React from 'react';
 import Experience from './Experience';
+import Education from './Education';
 
 export default function Overview(props) {
     const {
@@ -13,7 +14,13 @@ export default function Overview(props) {
         updateEmploymentEntry,
         deleteEmploymentEntry,
         setEmploymentHistory,
-        handleAddEntry
+        handleAddEntry,
+        studyHistory,
+        setStudyHistory,
+        editEducationEntry,
+        updateEducationEntry,
+        deleteEducationEntry,
+        handleEduEntry
     } = props;
     return (
         <>
@@ -72,14 +79,21 @@ export default function Overview(props) {
                     </div>
                 </div>
             </section>
-            <Experience 
-            employmentHistory={employmentHistory}
-            editEmploymentEntry={editEmploymentEntry}
-            updateEmploymentEntry={updateEmploymentEntry}
-            deleteEmploymentEntry={deleteEmploymentEntry}
-            setEmploymentHistory={setEmploymentHistory}
-            handleAddEntry={handleAddEntry}
-
+            <Experience
+                employmentHistory={employmentHistory}
+                editEmploymentEntry={editEmploymentEntry}
+                updateEmploymentEntry={updateEmploymentEntry}
+                deleteEmploymentEntry={deleteEmploymentEntry}
+                setEmploymentHistory={setEmploymentHistory}
+                handleAddEntry={handleAddEntry}
+            />
+            <Education
+                studyHistory={studyHistory}
+                setStudyHistory={setStudyHistory}
+                editEducationEntry={editEducationEntry}
+                updateEducationEntry={updateEducationEntry}
+                deleteEducationEntry={deleteEducationEntry}
+                handleEduEntry={handleEduEntry}
             />
             <section>
                 <h2>Education</h2>

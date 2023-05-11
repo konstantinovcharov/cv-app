@@ -10,17 +10,13 @@ function App() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [schoolName, setSchoolName] = useState('');
-  const [titleOfStudy, setTitleOfStudy] = useState('');
-  const [dateOfStudy, setDateOfStudy] = useState('');
+  const [phone, setPhone] = useState('');  
   const [generalinfo, setGeneralInfo] = useState({
     cvName: '',
     cvEmail: '',
     cvPhone: ''
   });
   const [editStatePS, setEditStatePS] = useState(false);
-
   const [employmentHistory, setEmploymentHistory] = useState(
     [{
       id: 1,
@@ -38,7 +34,23 @@ function App() {
       employmentDate: 'Jan 2021 - Present',
       isEditing: false
     }]
-  )
+  )  
+  const [studyHistory, setStudyHistory] = useState([
+    {
+      id: 1,
+      schoolName: "School A",
+      titleOfStudy: "Title A",
+      dateOfStudy: "01-02-2022 - 01-03-2023",
+      isEditing: false
+    },
+    {
+      id: 2,
+      schoolName: "School B",
+      titleOfStudy: "Title B",
+      dateOfStudy: "11-12-2019 - 01-03-2021",
+      isEditing: false
+    }
+  ])
 
   function handleEditClickPS() {
     setEditStatePS(true);
@@ -103,6 +115,44 @@ function App() {
     setEmploymentHistory((prevHistory) => [...prevHistory, newEntry]);
   };
 
+  
+  // Edit education entry
+  const editEducationEntry = (id) => {
+    setStudyHistory((prevState) => {
+      return prevState.map((education) =>
+      education.id === id ? { ...education, isEditing: true } : education
+      );
+    });
+  };
+
+  // Update education entry
+  const updateEducationEntry = (id) => {
+    setStudyHistory((prevState) =>
+      prevState.map((education) =>
+      education.id === id ? { ...education, isEditing: false } : education
+      )
+    );
+  };
+
+  // Delete education entry
+  const deleteEducationEntry = (id) => {
+    setStudyHistory((prevState) =>
+      prevState.filter((education) => education.id !== id)
+    );
+  };
+
+  const handleEduEntry = () => {
+    const newEntry = {
+      id: studyHistory.length + 1, // Generate a new unique ID
+      schoolName: '',
+      titleOfStudy: '',      
+      dateOfStudy: '',
+      isEditing: false,
+    };
+
+    setStudyHistory((prevHistory) => [...prevHistory, newEntry]);
+  };
+
 
 
 
@@ -153,37 +203,32 @@ function App() {
         setGeneralInfo={setGeneralInfo}
 
       />
-
-      <Experience
-        employmentHistory={employmentHistory}
-        editEmploymentEntry={editEmploymentEntry}
-        updateEmploymentEntry={updateEmploymentEntry}
-        deleteEmploymentEntry={deleteEmploymentEntry}
-        setEmploymentHistory={setEmploymentHistory}
-        handleAddEntry={handleAddEntry} // Pass the callback function to the Experience component
-      />
-      <Education
-        schoolName={schoolName}
-        titleOfStudy={titleOfStudy}
-        dateOfStudy={dateOfStudy}
-        setSchoolName={setSchoolName}
-        setTitleOfStudy={setTitleOfStudy}
-        setDateOfStudy={setDateOfStudy}
-      />
+      
+      
 
       <Overview
+      //General
         generalinfo={generalinfo}
         handleEdit={handleEditClickPS}
         handleChange={handleChange}
         editStatePS={editStatePS}
         handleUpdate={handleUpdateClickPS}
 
+        //Work Experience
         employmentHistory={employmentHistory}
         editEmploymentEntry={editEmploymentEntry}
         updateEmploymentEntry={updateEmploymentEntry}
         deleteEmploymentEntry={deleteEmploymentEntry}
         setEmploymentHistory={setEmploymentHistory}
         handleAddEntry={handleAddEntry}
+
+        //Education
+        studyHistory={studyHistory}
+        setStudyHistory={setStudyHistory}
+        editEducationEntry={editEducationEntry}
+        updateEducationEntry={updateEducationEntry}
+        deleteEducationEntry={deleteEducationEntry}
+        handleEduEntry={handleEduEntry}
       />
     </div>
   );
