@@ -86,21 +86,21 @@ export default function Education(props) {
                     <div>
                         {education.isEditing ? (
                             <>
-                                <button onClick={() => updateEducationEntry(education.id)}>
+                                <button className='button-update' onClick={() => updateEducationEntry(education.id)}>
                                     Update
                                 </button>
-                                <button onClick={() => deleteEducationEntry(education.id)}>
+                                <button className='button-delete' onClick={() => deleteEducationEntry(education.id)}>
                                     Delete
                                 </button>
                             </>
                         ) : (
-                            <button onClick={() => editEducationEntry(education.id)}>Edit</button>
+                            <button className='button-edit' onClick={() => editEducationEntry(education.id)}>Edit</button>
                         )}
                     </div>
                     <hr />
                 </div>
             ))}
-            <button onClick={() => handleEduEntry()}>Add</button>
+            <button className="button-add" onClick={() => handleEduEntry()}>Add</button>
         </div>
     )
 }

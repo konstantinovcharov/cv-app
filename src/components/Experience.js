@@ -115,21 +115,21 @@ export default function Experience(props) {
                     <div>
                         {employment.isEditing ? (
                             <>
-                                <button onClick={() => updateEmploymentEntry(employment.id)}>
+                                <button className='button-update' onClick={() => updateEmploymentEntry(employment.id)}>
                                     Update
                                 </button>
-                                <button onClick={() => deleteEmploymentEntry(employment.id)}>
+                                <button className='button-delete' onClick={() => deleteEmploymentEntry(employment.id)}>
                                     Delete
                                 </button>
                             </>
                         ) : (
-                            <button onClick={() => editEmploymentEntry(employment.id)}>Edit</button>
+                            <button className='button-edit' onClick={() => editEmploymentEntry(employment.id)}>Edit</button>
                         )}
                     </div>
                     <hr />
                 </div>
             ))}
-            <button onClick={() => handleAddEntry()}>Add</button>
+            <button className='button-add' onClick={() => handleAddEntry()}>Add</button>
         </div>
     );
 }

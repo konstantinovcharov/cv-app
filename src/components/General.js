@@ -3,29 +3,45 @@ import React from 'react';
 
 
 export default function General(props) {
-    const {name, email, phone, setName, setEmail, setPhone, handleSubmit} = props;
-
-    
-
-    
+    const {
+        generalinfo,
+        handleEdit,
+        handleChange,
+        editStatePS,
+        handleUpdate
+    } = props;    
 
     return (
-        <div className='general'>
-            <h1>General Component</h1>
-            <form className='form-general' onSubmit={handleSubmit}>
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-                <label htmlFor="phone">Phone:</label>
-                <input type="tel" name="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-
-                <button type="submit" className='btn-general'>Submit</button>
-            </form>
-            
-
-        </div>
+        <section className='general-component'>
+                <h1>Personal Information</h1>
+                <div className="row">
+                    <div className="col">
+                        <label htmlFor="name">Name</label>
+                        {editStatePS ? (
+                            <input type="text" name="cvName" value={generalinfo.cvName} onChange={(e) => handleChange(e)} />
+                        ) : (
+                            <div>{!generalinfo.cvName ? "John Doe" : generalinfo.cvName}</div>
+                        )}
+                    </div>
+                    <div className="col">
+                        <label htmlFor="email">Email</label>
+                        {editStatePS ? (
+                            <input type="email" name="cvEmail" value={generalinfo.cvEmail} onChange={(e) => handleChange(e)} />
+                        ) : (
+                            <div>{!generalinfo.cvEmail ? "johndoe@gmail.com" : generalinfo.cvEmail}</div>
+                        )}
+                    </div>
+                    <div className="col">
+                        <label htmlFor="phone">Phone</label>
+                        {editStatePS ? (
+                            <input type="tel" name="cvPhone" value={generalinfo.cvPhone} onChange={(e) => handleChange(e)} />
+                        ) : (
+                            <div>{generalinfo.cvPhone}</div>
+                        )}
+                    </div>
+                </div>
+                <button className='button-edit' onClick={handleEdit}>Edit</button>
+                <button className='button-update' onClick={handleUpdate}>Update</button>
+            </section>
     )
 }
